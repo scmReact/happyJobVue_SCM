@@ -1,53 +1,46 @@
 <template>
     <div class="divNoticeList">
-        <NoticeModal
-            v-if="modalState.modalState"
-            :noticeSeq="noticeSeq"
-            @modalClose="() => (noticeSeq = 0)"
-            @postSuccess="searchList"
-        ></NoticeModal>
         현재 페이지: {{ cPage }} 총 개수: {{ noticeList?.listCount }}
         <table>
             <colgroup>
-                <col width="10%" />
-                <col width="50%" />
                 <col width="30%" />
+                <col width="15%" />
+                <col width="10%" />
+                <col width="35%" />
                 <col width="10%" />
             </colgroup>
 
             <thead>
                 <tr>
-                    <th scope="col">번호</th>
-                    <th scope="col">제목</th>
-                    <th scope="col">작성일</th>
-                    <th scope="col">작성자</th>
+                    <th scope="col">반품 신청일자</th>
+                    <th scope="col">제품명</th>
+                    <th scope="col">반품개수</th>
+                    <th scope="col">금액</th>
+                    <th scope="col">반품상태</th>
                 </tr>
             </thead>
             <tbody>
-                <template v-if="noticeList">
-                    <template v-if="noticeList.listCount > 0">
+                <template v-if="returnList">
+                    <template v-if="returnList.listCount > 0">
                         <!-- v-bind:key="" 또는 :key=""를 사용하여 속성의 속성값을 바꿀 수 있다. (v-bind:속성="값" 또는 :속성="값") -->
-                        <tr
-                            v-for="notice in noticeList.noticeList"
-                            :key="notice.noti_seq"
-                            @click="handlerDetail(notice.noti_seq)"
-                        >
-                            <td>{{ notice.noti_seq }}</td>
-                            <td>{{ notice.noti_title }}</td>
-                            <td>{{ notice.noti_date }}</td>
-                            <td>{{ notice.loginID }}</td>
+                        <tr v-for="(item, index) in returnList.returnList" :key="index">
+                            <td>{{ item.return_order_date }}</td>
+                            <td>{{ item.item_name }}</td>
+                            <td>{{ item.return_count }}</td>
+                            <td>{{ item.return_price }}</td>
+                            <td>{{ item.signYN }}</td>
                         </tr>
                     </template>
                     <template v-else>
                         <tr>
-                            <td colspan="4">일치하는 검색 결과가 없습니다</td>
+                            <td colspan="5">일치하는 검색 결과가 없습니다</td>
                         </tr>
                     </template>
                 </template>
             </tbody>
         </table>
         <Pagination
-            :totalItems="noticeList?.listCount"
+            :totalItems="returnList?.listCount"
             :itemsPerPage="5"
             :maxPagesShown="5"
             :onClick="searchList"
@@ -55,18 +48,13 @@
         />
     </div>
 </template>
-
 <script setup>
 import Pagination from "@/components/common/Pagination.vue";
 import axios from "axios";
-import NoticeModal from "./NoticeModal.vue";
-import { useModalStore } from "@/stores/modalState";
 
 const route = useRoute();
-const noticeList = ref();
+const returnList = ref();
 const cPage = ref(1);
-const modalState = useModalStore();
-const noticeSeq = ref(0);
 
 const searchList = () => {
     let param = new URLSearchParams({
@@ -77,17 +65,11 @@ const searchList = () => {
         searchEdDate: route.query.searchEdDate || ""
     });
 
-    axios.post("/api/board/noticeListJson.do", param).then((res) => {
-        noticeList.value = res.data;
+    axios.post("/api/direction/returnListJson.do", param).then((res) => {
+        returnList.value = res.data;
     });
 };
 
-const handlerDetail = (seq) => {
-    noticeSeq.value = seq;
-    modalState.setModalState();
-};
-
-// route 값이 변경되면 searchList가 실행된다.
 watch(route, searchList);
 
 onMounted(() => {

@@ -4,6 +4,7 @@ import Notice from "@/views/Notice.vue";
 import DashBoard from "@/views/DashBoard.vue";
 import ComnCodMgr from "@/views/ComnCodMgr.vue";
 import ComnCodMgrDetail from "@/components/page/ComnCodMgr/ComnCodMgrDetail.vue";
+import ReturnList from "@/views/ReturnList.vue";
 
 const routes = [
     {
@@ -24,6 +25,17 @@ const routes = [
                         path: "notice.do",
                         name: "notice",
                         component: Notice
+                    }
+                ]
+            },
+            {
+                path: "direction",
+                name: "direction",
+                children: [
+                    {
+                        path: "returnList.do",
+                        name: "returnList",
+                        component: ReturnList
                     }
                 ]
             },
