@@ -6,6 +6,7 @@ import ComnCodMgr from "@/views/ComnCodMgr.vue";
 import ComnCodMgrDetail from "@/components/page/ComnCodMgr/ComnCodMgrDetail.vue";
 import Sale from "@/views/Sale.vue";
 import SaleTop from "@/views/SaleTop.vue";
+import ProductInfo from "@/views/ProductInfo.vue";
 
 const routes = [
     {
@@ -30,6 +31,17 @@ const routes = [
                 ]
             },
             {
+                path: "management",
+                name: "management",
+                children: [
+                    {
+                        path: "productInfo.do",
+                        name: "productInfo",
+                        component: ProductInfo
+                    }
+                ]
+            },
+            {
                 path: "system",
                 name: "system",
                 children: [
@@ -45,6 +57,7 @@ const routes = [
                     }
                 ]
             },
+
             {
                 path: "executives",
                 name: "executives",
