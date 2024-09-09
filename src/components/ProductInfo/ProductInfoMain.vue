@@ -63,19 +63,18 @@ const route = useRoute();
 const productList = ref();
 const cPage = ref(1);
 const modalState = useModalStore();
-const item_code = ref(0);
 const itemCodeProp = ref();
 
 const searchList = () => {
     let param = new URLSearchParams({
         cpage: cPage.value,
         pageSize: 5,
-        searchTitle: route.query.searchTitle || "",
-        searchStDate: route.query.searchStDate || "",
-        searchEdDate: route.query.searchEdDate || ""
+        searchItemName: route.query.searchItemName || "",
+        searchManufac: route.query.searchManufac || "",
+        searchItemCode: route.query.searchItemCode || ""
     });
 
-    axios.post("/api/management/getProductListJson.do", param).then((res) => {
+    axios.post("/api/management/productSearchJson.do", param).then((res) => {
         productList.value = res.data;
     });
 };
