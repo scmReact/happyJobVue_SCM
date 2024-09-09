@@ -1,7 +1,6 @@
 <template>
     <div class="backldrop">
         <div class="container">
-            <div class=""></div>
         </div>
     </div>
 </template>
