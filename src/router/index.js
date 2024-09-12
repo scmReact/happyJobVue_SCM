@@ -15,6 +15,7 @@ import SupplyInfo from "@/views/SupplyInfo.vue";
 import WarehouseInfo from "@/views/Management/WarehouseInfo.vue";
 import OrderCompany from "@/views/Management/OrderCompany.vue";
 import Order from "@/views/mypage/Order.vue";
+import PandL from "@/views/PandL.vue";
 
 const routes = [
     {
@@ -60,7 +61,6 @@ const routes = [
                 ]
             },
             {
-
                 path: "mypage",
                 name: "mypage",
                 children: [
@@ -74,7 +74,7 @@ const routes = [
                         name: "order",
                         component: Order
                     }
-              ]
+                ]
             },
             {
                 path: "executives",
@@ -84,6 +84,11 @@ const routes = [
                         path: "sales.do",
                         name: "sale",
                         component: Sale
+                    },
+                    {
+                        path: "PandL.do",
+                        name: "PandL",
+                        component: PandL
                     },
                     {
                         path: "salesTop.do",
@@ -132,8 +137,8 @@ const routes = [
         ]
     },
     {
-        path:'/test',
-        name:'test',
+        path: "/test",
+        name: "test",
         component: Test
     }
 ];
