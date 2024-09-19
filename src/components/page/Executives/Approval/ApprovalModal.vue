@@ -27,6 +27,9 @@ const mm = () => {
         .then((res) => {
             modalState.setModalState();
             alert("승인 되었습니다.");
+            // modalProp.seq === 'tb_order' ? 
+            modalProp.state = true;
+            console.log(modalProp)
         });
 };
 </script>

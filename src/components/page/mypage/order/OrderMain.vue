@@ -42,7 +42,7 @@
                 </template>
                 <template v-else>
                     <tr>
-                        <td>구매내역이 없습니다</td>
+                        <td colspan="7">구매내역이 없습니다</td>
                     </tr>
                 </template>
             </tbody>

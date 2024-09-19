@@ -57,18 +57,6 @@
 import Pagination from "@/components/common/Pagination.vue";
 import axios from "axios";
 import { useModalStore } from "@/stores/modalState";
-import emitter from './eventBus';
-
-export default {
-    setup() {
-        const handleCustomEvent = (data) => {
-            console.log(data); // someData : 'example'
-        };
-
-    }
-}
-
-
 
 const cPage = ref(1);
 const pageSize = ref(10);
@@ -88,27 +76,35 @@ const viewList = async () => {
         })
         .then((res) => {
             orderObj.value = res.data;
+            console.log("order obj in return");
+            console.log(orderObj.value);
         });
 };
 
 const clickProp = (seq) => {
     injectedModalProp.value = {
         str: "tb_return",
-        seq: seq
+        seq: seq,
+        state: false
     };
     modalState.setModalState();
+    viewList();
 };
 
-watch(injectedValue, viewList);
+watch(
+    () => injectedModalProp.value.state,
+    (newState) => {
+        if (newState === true) { // false로 변경될 때
+            console.log("Modal closed, reloading list");
+            viewList(); // 모달이 닫힐 때 viewList 호출
+        }
+    }
+);
 
 onMounted(() => {
     viewList();
-    emitter.on('customEvent', handleCustomEvent);
 });
 
-onUnmounted(() => {
-    emitter.off('customEvent', handleCustomEvent);
-});
 </script>
 
 <style lang="scss" scoped>

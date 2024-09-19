@@ -52,17 +52,17 @@
 import Pagination from "@/components/common/Pagination.vue";
 import axios from "axios";
 import { useModalStore } from "@/stores/modalState";
+import { watch } from "vue";
 
-import emitter from './eventBus.js';
+// import emitter from './eventBus.js';
 
-export default {
-    methods: {
-        emitCustomEvent() {
-            emitter.emit('customEvent', {someData: 'example'});
-        }
-    }
-}
-
+// export default {
+//     methods: {
+//         emitCustomEvent() {
+//             emitter.emit('customEvent', {someData: 'example'});
+//         }
+//     }
+// }
 
 const cPage = ref(1);
 const pageSize = ref(10);
@@ -76,13 +76,23 @@ const injectedModalProp = inject("modalProp");
 const clickProp = (seq) => {
     injectedModalProp.value = {
         str: "tb_order",
-        seq: seq
+        seq: seq,
+        state: false
     };
     modalState.setModalState();
 };
 
+watch(
+    () => injectedModalProp.value.state,
+    (newState) => {
+        if (newState === true) { // false로 변경될 때
+            console.log("Modal closed, reloading list");
+            viewList(); // 모달이 닫힐 때 viewList 호출
+        }
+    }
+);
+
 const viewList = () => {
-    console.log("haha");
     axios
         .post("/api/executives/orderApprovalJson.do", {
             cpage: cPage.value,

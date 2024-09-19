@@ -180,6 +180,11 @@ const routes = [
                         path: "return.do",
                         name: "return",
                         component: ReturnHistory
+                    },
+                    {
+                        path: "order.do",
+                        name: "order",
+                        component: Order
                     }
                 ]
             },

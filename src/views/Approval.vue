@@ -12,6 +12,7 @@
 </template>
 
 <script setup>
+
 import ContextBox from "@/components/common/ContextBox.vue";
 import OrderSearch from "@/components/page/Executives/Approval/OrderSearch.vue";
 import OrderApproval from "@/components/page/Executives/Approval/OrderApproval.vue";
@@ -21,7 +22,11 @@ import ApprovalModal from "@/components/page/Executives/Approval/ApprovalModal.v
 import { useModalStore } from "@/stores/modalState";
 
 const modalState = useModalStore();
-const modalProp = ref();
+const modalProp = ref({
+    str: "",
+    seq: null,
+    state: false
+});
 const orderProvidedValue = ref();
 const returnProvidedValue = ref();
 
