@@ -23,6 +23,7 @@ import OrderList from "@/views/direction/OrderList.vue";
 import Return from "@/views/mypage/Return.vue";
 import DeliveryChk from "@/views/DeliveryChk.vue";
 import ReturnHistory from "@/views/ReturnHistory.vue";
+import Approval from "@/views/Approval.vue";
 
 const routes = [
     {
@@ -106,6 +107,11 @@ const routes = [
                         path: "storage.do",
                         name: "storage",
                         component: Storage
+                    },
+                    {
+                        path: "approval.do",
+                        name: "approval",
+                        component: Approval
                     }
                 ]
             },
@@ -180,6 +186,11 @@ const routes = [
                         path: "return.do",
                         name: "return",
                         component: ReturnHistory
+                    },
+                    {
+                        path: "order.do",
+                        name: "order",
+                        component: Order
                     }
                 ]
             },
